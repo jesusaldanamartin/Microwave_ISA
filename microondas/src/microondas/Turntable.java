@@ -1,11 +1,6 @@
 package microondas;
 
-public class Turntable extends Microwave {
-
-	public Turntable(int p, int t) {
-		super(p, t);
-		// TODO Auto-generated constructor stub
-	}
+public class Turntable {
 
 	public Boolean turntableOn;
 	

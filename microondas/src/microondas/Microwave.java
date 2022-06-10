@@ -1,54 +1,55 @@
 package microondas;
 
 // En composicion si se elimina la clase 'todo' tambien debe eliminarse la 'parte'
-public class Microwave {
+public abstract class Microwave {
 
 	private Boolean doorOpen, cooking, withItem;
 	private Integer power, timer;
 	
-	private Heating heating;
-	private Lamp lamp;
-	private Turntable turntable;
-	private Beeper beeper;
-	private Display display;
+	protected Heating heating = new Heating();
+	protected Lamp lamp = new Lamp();
+	protected Turntable turntable = new Turntable();
+	protected Beeper beeper = new Beeper();
+	protected Display display = new Display();
 	
 	
-	// Constructor que solo posee como enteros la potenia y el tiempo.
+	// Constructor que solo posee como enteros la potencia y el tiempo.
 	public Microwave(int p, int t) {
 		this.power = p;
 		this.timer = t;
 	}
 	
-	// Constructor completo que recibe como parametros en booleanos si la puerta esta abierta, si se esta cocinando
-	// un alimento y si hay algun objeto dentro. Además se le pasa como enteros la potenia y el tiempo.
+	// Constructor completo, llamo a los setters de cada variable y los adapto a lo que recibo como parametros.
 	public Microwave(boolean door, boolean cook, boolean item, int p, int t) {
-		this.doorOpen = door;
+		this.setDoorOpen(door);
 		this.cooking = cook;
-		this.withItem = item;
-		this.power = p;
-		this.timer = t;
+		this.setWithItem(item);
+		this.setPower(p);
+		this.setTimer(t);
 	}
 
-	// TBD
-//	public void door_opened() {}
-//	public void door_closed() {}
-//	public void item_placed() {}
-//	public void item_removed() {}
-//	public void power_inc() {}
-//	public void power_dec() {}
-//	public void power_reset() {}
-//	public void timer_inc() {}
-//	public void timer_dec() {}
-//	public void timer_reset() {}
-//	public void cooking_start() {}
-//	public void cooking_stop() {}
-//	public void tick() {}
+	// Metodos abstractos del microondas al que
+	// accedera cada estado
+	public abstract Microwave door_opened();
+	public abstract Microwave door_closed();
+	public abstract Microwave item_placed();
+	public abstract Microwave item_removed();
+	public abstract void power_inc();
+	public abstract void power_dec();
+	public abstract void power_reset();
+	public abstract void timer_inc();
+	public abstract void timer_dec();
+	public abstract void timer_reset();
+	public abstract void cooking_start();
+	public abstract void cooking_stop();
+	public abstract void tick();
 	
+	// Metodos
 	public Boolean getDoorOpen() {
 		return doorOpen;
 	}
 
-	public void setDoorOpen(Boolean doorOpen) {
+	public void setDoorOpen(boolean doorOpen) {
 		this.doorOpen = doorOpen;
 	}
 
@@ -56,7 +57,7 @@ public class Microwave {
 		return cooking;
 	}
 
-	public void setCooking(Boolean cooking) {
+	public void setCooking(boolean cooking) {
 		this.cooking = cooking;
 	}
 
@@ -64,23 +65,23 @@ public class Microwave {
 		return withItem;
 	}
 
-	public void setWithItem(Boolean withItem) {
+	public void setWithItem(boolean withItem) {
 		this.withItem = withItem;
 	}
 
-	public Integer getPower() {
+	public int getPower() {
 		return power;
 	}
-
-	public void setPower(Integer power) {
-		this.power = power;
+	
+	public void setPower(int power) {
+		 this.power = power;
 	}
 
-	public Integer getTimer() {
+	public int getTimer() {
 		return timer;
 	}
-
-	public void setTimer(Integer timer) {
+	
+	public void setTimer(int timer) {
 		this.timer = timer;
 	}
 }

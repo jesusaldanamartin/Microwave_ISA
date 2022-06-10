@@ -1,11 +1,6 @@
 package microondas;
 
-public class Lamp extends Microwave {
-
-	public Lamp(int p, int t) {
-		super(p, t);
-		// TODO Auto-generated constructor stub
-	}
+public class Lamp {
 
 	public Boolean lampOn;
 	

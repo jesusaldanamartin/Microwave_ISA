@@ -1,18 +1,12 @@
 package microondas;
 
-public class Heating extends Microwave {
+public class Heating {
 	
 
 	// Atributos
 	private Boolean heating;
 	private Integer power;
 	
-	// Constructor
-	public Heating(int p, int t) {
-		super(p, t);
-		// TODO Auto-generated constructor stub
-	}
-		
 	// Metodos
 	public void heating_on(){
 		this.heating = true;
