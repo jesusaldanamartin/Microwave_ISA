@@ -26,22 +26,35 @@ public class ClosedWithNoItem extends Microwave {
 
 	// El estado ClosedWithNoItem es el inicial por lo que al estar la puerta cerrada
 	// no habría que implementarlos.
-	public Microwave door_closed() { return null; }
-	public Microwave item_placed() { return null; }
-	public Microwave item_removed() { return null;}
+	@Override
+	public Microwave door_closed() { throw new MicrowaveExceptions("La puerta ya está cerrada"); }
+	public Microwave item_placed() { throw new MicrowaveExceptions("La puerta se encuentra cerrada"); }
+	public Microwave item_removed() { throw new MicrowaveExceptions("La puerta se encuentra cerrada"); }
 
 	@Override
 	public void power_inc() {
-		int inc = getPower() + 1;
-		setPower(inc);
-		display.setDisplay("Potencia aumentada:" + inc);		
+		if(getPower() <= 10) {
+			int inc = getPower() + 1;
+			setPower(inc);
+			display.setDisplay("Potencia aumentada:" + inc);	
+		}else {
+			display.setDisplay("Potencia Máxima: 10");	
+			throw new MicrowaveExceptions("Potencia máxima alcanzada");
+		}		
 	}
 
 	@Override
 	public void power_dec() {
-		int dec = getPower() - 1;
-		setPower(dec);
-		display.setDisplay("Potencia reducida:" + dec);		
+		int p = getPower();
+		if(p != 0) {
+			int dec = getPower() - 1;
+			setPower(dec);
+			display.setDisplay("Potencia reducida:" + dec);		
+		}else {
+			display.setDisplay("Potencia reducida al mínimo:" + getPower());	
+			throw new MicrowaveExceptions("Potencia mínima alcanzada");
+
+		}
 	}
 
 	@Override
@@ -61,9 +74,14 @@ public class ClosedWithNoItem extends Microwave {
 
 	@Override
 	public void timer_dec() {
-		int dec = getTimer() - 5;
-		setTimer(dec);
-		display.setDisplay("Tiempo reducido:" + dec);	
+		int t = getTimer();
+		if(t != 0) {
+			int dec = getTimer() - 5;
+			setTimer(dec);
+			display.setDisplay("Tiempo reducido:" + dec);	
+		}else {
+			throw new MicrowaveExceptions("No se puede reducir más el tiempo de coccion");	
+		}
 	}
 
 	@Override
@@ -74,9 +92,9 @@ public class ClosedWithNoItem extends Microwave {
 	}
 
 	// El estado ClosedWithNoItem es el inicial por lo que no hay nada cocinandose.
-	public void cooking_start() {};
-	public void cooking_stop(){};
-	public void tick(){};
+	public void cooking_start() { throw new MicrowaveExceptions("Estado Inicial"); };
+	public void cooking_stop(){ throw new MicrowaveExceptions("Estado Inicial"); };
+	public void tick(){ throw new MicrowaveExceptions("Estado Inicial"); };
 
 
 	

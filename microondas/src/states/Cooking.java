@@ -24,9 +24,9 @@ public class Cooking extends Microwave {
 	}
 
 	@Override
-	public Microwave door_closed() { return null; }
-	public Microwave item_placed() { return null; }
-	public Microwave item_removed() { return null; }
+	public Microwave door_closed() { throw new MicrowaveExceptions("La puerta ya está cerrada"); }
+	public Microwave item_placed() { throw new MicrowaveExceptions("La puerta se encuentra cerrada"); }
+	public Microwave item_removed() { throw new MicrowaveExceptions("La puerta se encuentra cerrada"); }
 
 	@Override
 	public void power_inc() {
@@ -36,6 +36,7 @@ public class Cooking extends Microwave {
 			display.setDisplay("Potencia aumentada:" + inc);	
 		}else {
 			display.setDisplay("Potencia Máxima: 10");	
+			throw new MicrowaveExceptions("Potencia máxima alcanzada");
 		}
 			
 	}
@@ -49,6 +50,7 @@ public class Cooking extends Microwave {
 			display.setDisplay("Potencia reducida:" + dec);		
 		}else {
 			new ClosedWithItem(getPower(), getTimer());
+			throw new MicrowaveExceptions("Potencia mínima alcanzada");
 		}
 	}
 
@@ -74,6 +76,8 @@ public class Cooking extends Microwave {
 			int dec = getTimer() - 5;
 			setTimer(dec);
 			display.setDisplay("Tiempo reducido:" + dec);	
+		}else {
+			throw new MicrowaveExceptions("No se puede reducir más el tiempo de coccion");	
 		}
 	}
 
@@ -86,7 +90,7 @@ public class Cooking extends Microwave {
 	}
 
 	@Override
-	public void cooking_start() {};
+	public void cooking_start() { throw new MicrowaveExceptions("El microondas ya esta cocinando"); };
 
 	@Override
 	public void cooking_stop() {

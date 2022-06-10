@@ -84,4 +84,16 @@ public abstract class Microwave {
 	public void setTimer(int timer) {
 		this.timer = timer;
 	}
+	
+	public Boolean getHeating() {
+		return heating.isHeating();
+	}
+	
+	public Boolean getLamp() {
+		return lamp.isLampOn();
+	}
+	
+	public Boolean getTurntable() {
+		return turntable.isMoving();
+	}
 }
